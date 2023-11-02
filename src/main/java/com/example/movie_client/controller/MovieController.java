@@ -16,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.HashMap;
 import java.util.Map;
 @Controller
-@RequestMapping("movie-details")
+@RequestMapping("/movie-details")
 public class MovieController {
     @Autowired
     private RestTemplate restTemplate;
