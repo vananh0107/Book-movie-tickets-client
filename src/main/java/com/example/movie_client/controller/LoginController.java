@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,12 +63,13 @@ public class LoginController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("hasErrors", true);
+            model.addAttribute("hasErrors", bindingResult);
         } else {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             Set<Role> roles = new HashSet<>();
             Role roleClient = new Role();
+            roleClient.setId(1);
             roleClient.setName("ROLE_CLIENT");
             roles.add(roleClient);
             user.setRoles(roles);
@@ -79,7 +79,7 @@ public class LoginController {
                 request.getSession().setAttribute("jwtResponse", jwtResponse.getBody());
             } catch (HttpClientErrorException ex) {
                 model.addAttribute("registerError", ex.getResponseBodyAsString());
-                model.addAttribute("hasErrors", true);
+                model.addAttribute("hasErrors", bindingResult);
             }
         }
 

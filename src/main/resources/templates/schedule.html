@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:insert="~{fragments/fragment::html_head}"></head>
+    <title>Chọn lịch xem phim</title>
+    <style>
+        .container{
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header::nav-top}">
+    </div>
+    <div th:replace="~{fragments/header::nav-body}">
+    </div>
+
+    <br><br><br>
+    <div class="container">
+        <form th:action="@{/room-selection}" method="post">
+            <h2>Chọn lịch xem phim</h2>
+            <br>
+            <p>Chọn ngày xem phim (yyyy-MM-dd)</p>
+            <select id="listDate" class="form-control form-control-lg" name="startDate">
+                <option th:each="date : ${listDates}" th:value="${date}" th:text="${date}"></option>
+            </select>
+            <br>
+            <p>Chọn giờ xem phim (HH:mm)</p>
+            <select id="listTimes" class="form-control form-control-lg" name="startTime">
+                <option th:each="startTime : ${listStartTimes}" th:value="${startTime}" th:text="${startTime}"></option>
+            </select>
+            <br><br>
+            <button type="submit" class="btn btn-outline-danger btn-block">Submit</button>
+        </form>
+    </div>
+
+    <div th:replace="~{fragments/footer::footer}">
+    </div>
+</body>
+</html>

@@ -41,8 +41,8 @@ public class ScheduleController {
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        // Để tạm ngày hôm nay là 1/11
-        LocalDate today = LocalDate.parse("2023-11-01");
+        // Để tạm ngày hôm nay là 5/11
+        LocalDate today = LocalDate.parse("2023-11-05");
         ArrayList<LocalDate> listDates = new ArrayList<>();
         listDates.add(today);
         // Lấy ra 10 ngày tính từ hôm nay
@@ -61,7 +61,7 @@ public class ScheduleController {
         Map<String, String> listRequestParam = new HashMap<>();
         listRequestParam.put("movieId", movieId + "");
         listRequestParam.put("branchId", branchId + "");
-        listRequestParam.put("startDate", LocalDate.parse("2023-11-01").format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        listRequestParam.put("startDate", LocalDate.parse("2023-11-05").format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         ResponseEntity<String[]> listStartTimesEntity = restTemplate.exchange(urlTemplate,
                 HttpMethod.GET, entity, String[].class, listRequestParam);

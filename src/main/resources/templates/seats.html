@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:insert="~{fragments/fragment::html_head}"></head>
+    <title>Chọn Chỗ Ngồi</title>
+    <style>
+        .screen-container {
+            perspective: 1000px;
+            margin: 40px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .screen {
+            background: rgb(71, 165, 209);
+            height: 70px;
+            width: 70%;
+            margin: 15px 0;
+            transform: rotateX(-45deg);
+            box-shadow: 0 3px 10px rgba(19, 120, 145, 0.7);
+        }
+
+        input.largerCheckbox {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header::nav-top}">
+    </div>
+    <div th:replace="~{fragments/header::nav-body}">
+    </div>
+
+    <br><br><br>
+    <div class="container">
+        <h1>Chọn Chỗ Ngồi</h1>
+    </div>
+    <div class="screen-container">
+        <h2>Màn Hình</h2>
+        <div class="screen"></div>
+        <br><br><br>
+        <p style="color: red" th:text="${bookedError}"></p>
+        <div class="container">
+            <form action="bill" method="post">
+                <table style="width:100%">
+                    <tr>
+                        <th></th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                    </tr>
+                    <tr>
+                        <th>A</th>
+                        <th th:each="seat : ${listA}">
+                            <input type="checkbox" class="largerCheckbox" name="seats" th:value="${seat.id}"
+                                   th:checked="${seat.isOccupied == 1}" th:disabled="${seat.isOccupied == 1}" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>B</th>
+                        <th th:each="seat : ${listB}">
+                            <input type="checkbox" class="largerCheckbox" name="seats" th:value="${seat.id}"
+                                   th:checked="${seat.isOccupied == 1}" th:disabled="${seat.isOccupied == 1}" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>C</th>
+                        <th th:each="seat : ${listC}">
+                            <input type="checkbox" class="largerCheckbox" name="seats" th:value="${seat.id}"
+                                   th:checked="${seat.isOccupied == 1}" th:disabled="${seat.isOccupied == 1}" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>D</th>
+                        <th th:each="seat : ${listD}">
+                            <input type="checkbox" class="largerCheckbox" name="seats" th:value="${seat.id}"
+                                   th:checked="${seat.isOccupied == 1}" th:disabled="${seat.isOccupied == 1}" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>D</th>
+                        <th th:each="seat : ${listD}">
+                            <input type="checkbox" class="largerCheckbox" name="seats" th:value="${seat.id}"
+                                   th:checked="${seat.isOccupied == 1}" th:disabled="${seat.isOccupied == 1}" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>E</th>
+                        <th th:each="seat : ${listE}">
+                            <input type="checkbox" class="largerCheckbox" name="seats" th:value="${seat.id}"
+                                   th:checked="${seat.isOccupied == 1}" th:disabled="${seat.isOccupied == 1}" />
+                        </th>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <input type="submit" class="btn btn-outline-danger btn-block" value="Tiếp Tục"></input>
+            </form>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer::footer}">
+    </div>
+</body>
+</html>

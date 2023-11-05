@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:insert="~{fragments/fragment::html_head}"></head>
+    <title>Chọn chi nhánh</title>
+    <style>
+        .container{
+           margin-bottom:100px;
+       }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header::nav-top}">
+    </div>
+    <div th:replace="~{fragments/header::nav-body}">
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <h2 class="container">Chọn Chi Nhánh</h2>
+    <div class="d-flex justify-content-between flex-wrap container">
+        <div th:each="branch : ${branches}" class="card branch-item" style="width:500px">
+            <img th:src="${branch.imgURL}" alt="Card image" style="width:100%, height:400px" class="card-img-top img-branch" />
+            <div class="card-body">
+                <h4 th:text="${branch.name}" class="card-title"></h4>
+                <p class="card-text" th:text="'Địa Chỉ: ' + ${branch.diaChi}"></p>
+                <p class="card-text" th:text="'SĐT: ' + ${branch.phoneNo}"></p>
+                <a th:href="@{'schedule?movieId=' + ${session.movieId} + '&branchId=' + ${branch.id}}" class="btn btn-outline-danger btn-block">Chọn</a>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer::footer}">
+    </div>
+</body>
+</html>

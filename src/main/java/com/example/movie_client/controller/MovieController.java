@@ -35,6 +35,6 @@ public class MovieController {
         MovieDTO movie = response.getBody();
         model.addAttribute("movie",movie);
         model.addAttribute("user",new User());
-        return "movie-details";
+        return "movie-detail";
     }
 }

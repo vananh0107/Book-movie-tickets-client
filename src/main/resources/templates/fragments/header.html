@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:insert="~{fragments/fragment::html_head}"></head>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 </head>
 <!-- nav bar -->
@@ -21,9 +20,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/tickets/history">Lịch sử mua vé</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Cá nhân</a>
-                </li>
             </div>
 
             <li class="nav-item">
@@ -31,22 +27,21 @@
             </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">
-            <div th:if="${session.jwtResponse == null}">
+            <th:block th:if="${session.jwtResponse == null}">
                 <li class="nav-item btn btn-primary" data-toggle="modal" data-target="#modalLoginForm">
                     Đăng nhập
                 </li>
                 <li class="nav-item btn btn-info" data-toggle="modal" data-target="#modalRegisterForm">
                     Đăng ký
                 </li>
-            </div>
-            <div th:if="${session.jwtResponse != null}">
-                <li class="nav-item">
-                    <a th:style="'color: gold'" th:text="${session.jwtResponse.name}"></a>
+            </th:block>
+            <th:block th:if="${session.jwtResponse != null}">
+                <li class="nav-item" th:style="'color: gold'" th:text="${session.jwtResponse.name}">
                 </li>
                 <li class="nav-item">
                     <a href="/account/sign-out" class="btn btn-danger sign-out">Đăng xuất</a>
                 </li>
-            </div>
+            </th:block>
         </div>
     </div>
 </nav>
@@ -106,7 +101,7 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="/account/register" method="post" modelAttribute="user">
+            <form action="/account/register" method="post" th:object="${user}" class="form-register">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">Đăng ký</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -115,29 +110,27 @@
                 </div>
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
-                        <p><i style="color: red">${registerError}</i></p>
+                        <p><i style="color: red" th:text="${registerError}"></i></p>
                         <label data-error="wrong" data-success="right" for="orangeForm-name">Họ tên</label>
                         <i class="fas fa-user prefix grey-text"></i>
-                        <input path="fullName" name="fullname" type="text" id="orangeForm-name"
-                                    class="form-control validate" value="${fn}"/>
-                        <errors path="fullName" cssClass="error" cssStyle="color: red"/>
+                        <input th:field="*{fullName}" type="text" id="orangeForm-name"
+                               class="form-control validate" />
+                        <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error" style="color: red"></div>
                     </div>
                     <div class="md-form mb-5">
                         <label data-error="wrong" data-success="right" for="orangeForm-email">Email</label>
                         <i class="fas fa-envelope prefix grey-text"></i>
-                        <input path="username" name="username" type="text" id="orangeForm-email"
-                                    class="form-control validate" value="${un}"/>
-                        <errors path="username" cssClass="error" cssStyle="color: red"/>
+                        <input th:field="*{username}" type="text" id="orangeForm-email"
+                               class="form-control validate" />
+                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error" style="color: red"></div>
                     </div>
-
                     <div class="md-form mb-4">
                         <label data-error="wrong" data-success="right" for="orangeForm-pass">Mật khẩu</label>
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <input path="password" name="password" type="password" id="orangeForm-pass"
-                                    class="form-control validate" value="${pw}"></input>
-                        <errors path="password" cssClass="error" cssStyle="color: red"/>
+                        <input th:field="*{password}" type="password" id="orangeForm-pass"
+                               class="form-control validate" />
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error" style="color: red"></div>
                     </div>
-
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button class="btn btn-primary btn-block">Đăng ký</button>

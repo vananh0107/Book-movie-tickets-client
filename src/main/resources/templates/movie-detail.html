@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:insert="~{fragments/fragment::html_head}"></head>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+    <style >
+        th {
+            padding: 0px 20px 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <!-- nav bar -->
+    <div th:replace="~{fragments/header::nav-top}">
+    </div>
+    <div th:replace="~{fragments/header::nav-body}">
+    </div>
+    <!-- end of navbar -->
+    <br><br><br>
+    <div class="container">
+        <h1>Chi Tiết Phim</h1>
+        <br>
+        <div style="display:flex">
+            <div style="margin-right:50px">
+                <img th:src="${movie.smallImageURl}" alt="" style="width: 300px"/>
+                <div th:if="${session != null && session.jwtResponse == null}">
+                    <button class="btn btn-danger btn-block btn-buy-ticket-not-signed-in">Mua vé</button>
+                </div>
+                <div th:unless="${session != null && session.jwtResponse == null}">
+                    <a th:href="@{'branches?movieId=' + ${movie.id}}" class="btn btn-danger btn-block">Mua vé</a>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <th><b>Tên Phim: </b></th>
+                    <th th:text="${movie.name}"></th>
+                </tr>
+                <tr>
+                    <th><b>Đạo diễn:</b></th>
+                    <th th:text="${movie.director}"></th>
+                </tr>
+                <tr>
+                    <th><b>Diễn Viên:</b></th>
+                    <th th:text="${movie.actors}"></th>
+                </tr>
+                <tr>
+                    <th><b>Ngày Khởi Chiếu:</b></th>
+                    <th th:text="${movie.releaseDate}"></th>
+                </tr>
+                <tr>
+                    <th><b>Thể Loại:</b></th>
+                    <th th:text="${movie.categories}"></th>
+                </tr>
+                <tr>
+                    <th><b>Thời Lượng:</b></th>
+                    <th th:text="${movie.duration}"> phút</th>
+                </tr>
+                <tr>
+                    <th><b>Ngôn Ngữ:</b></th>
+                    <th th:text="${movie.language}"></th>
+                </tr>
+                <tr>
+                    <th><b>Rated:</b></th>
+                    <th th:text="${movie.rated}"></th>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div style="display:flex;">
+            <div style="margin-right: 50px">
+                <h1>Trailer:</h1>
+                <iframe width="560" height="315" th:src="${movie.trailerURL}"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <div>
+                <h1>Giới Thiệu:</h1>
+                <p th:text="${movie.longDescription}"></p>
+            </div>
+        </div>
+        <br>
+
+        <br>
+        <br>
+    </div>
+    <br>
+    <br>
+<div th:replace="~{fragments/footer::footer}">
+</div>
+    <div th:if="${sessionScope?.jwtResponse == null}">
+        <script th:inline="javascript">
+            $(document).ready(function () {
+                $('.btn-buy-ticket-not-signed-in').on('click', function () {
+                    $('#modalLoginForm').modal('show');
+                });1
+            });
+        </script>
+    </div>
+</body>
+</html>

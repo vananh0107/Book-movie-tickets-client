@@ -7,17 +7,33 @@
 .img-movie {
     height: 400px;
 }
-
+.card-title{
+    height: 58px;
+}
+.card-text{
+   max-height: 4 * 1.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    width: 260px;
+    height:96px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical
+}
 .movie-item {
     margin-bottom: 50px;
 }
-
 button.search-btn, input {
     font: 1em Hind, sans-serif;
     line-height: 1.5em;
 }
 input {
     color: #171717;
+}
+.img-slide{
+    max-height:550px;
 }
 .search-bar {
     display: flex;

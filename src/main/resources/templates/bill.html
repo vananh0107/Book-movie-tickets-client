@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:insert="~{fragments/fragment::html_head}"></head>
+    <title>Thanh Toán</title>
+    <style>
+        th {
+            padding: 0px 20px 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header::nav-top}">
+    </div>
+    <div th:replace="~{fragments/header::nav-body}">
+    </div>
+
+    <br><br><br>
+    <div class="container">
+        <h2>Thanh toán hóa đơn</h2>
+        <br>
+        <div style="display:flex">
+            <table>
+                <tr>
+                    <th><b>Tên Phim: </b></th>
+                    <th th:text="${session.schedule.movie.name}"></th>
+                </tr>
+                <tr>
+                    <th><b>Tên Chi Nhánh:</b></th>
+                    <th th:text="${session.schedule.branch.name}"></th>
+                </tr>
+                <tr>
+                    <th><b>Giờ Chiếu:</b></th>
+                    <th th:text="${session.schedule.startTime}"></th>
+                </tr>
+                <tr>
+                    <th><b>Ngày Chiếu:</b></th>
+                    <th th:text="${formattedDate}"></th>
+                </tr>
+                <tr>
+                    <th><b>Tên Phòng:</b></th>
+                    <th th:text="${session.schedule.room.name}"></th>
+                </tr>
+                <tr>
+                    <th><b>Số Vé:</b></th>
+                    <th th:text="${numberOfSelectedSeats}"></th>
+                </tr>
+                <tr>
+                    <th><b>Tiền Vé Đơn:</b></th>
+                    <th th:text="${totalAmount}/${numberOfSelectedSeats}"></th>
+                </tr>
+                <tr>
+                    <th><b>Tổng:</b></th>
+                    <th th:text="${totalAmount}"></th>
+                </tr>
+            </table>
+            <div style="margin-left:50px">
+                <img th:src="${session.schedule.movie.smallImageURl}" alt="" style="width: 300px; height: 400px;"/>
+            </div>
+            <div style="margin-left:50px;width: 360px; height: 400px;">
+                <img style="height: 100%; width: 100%;" th:src="${session.schedule.branch.imgURL}" alt=""/>
+            </div>
+        </div>
+        <br>
+        <a th:href="bill" class="btn btn-outline-danger btn-block">Thanh Toán</a>
+    </div>
+    <br><br><br>
+
+    <div th:replace="~{fragments/footer::footer}">
+    </div>
+</body>
+</html>
