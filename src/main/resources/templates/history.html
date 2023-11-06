@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:insert="~{fragments/fragment::html_head}"></head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,td{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header::nav-top}">
+    </div>
+    <div th:replace="~{fragments/header::nav-body}">
+    </div>
+
+    <br><br><br>
+    <div class="container-fluid">
+        <h2>Lịch Sử Mua Vé </h2>
+        <br>
+        <div>
+            <table style="width:100%">
+                <tr>
+                    <th>Tên Phim</th>
+                    <th>Tên Chi Nhánh</th>
+                    <th>Giờ Chiếu</th>
+                    <th>Tên Phòng</th>
+                    <th>Ghế</th>
+                    <th>Giờ Mua</th>
+                    <th>Mã QR</th>
+                </tr>
+                <tr th:each="ticket : ${listTickets}">
+                    <td th:text="${ticket.schedule.movie.name}"></td>
+                    <td th:text="${ticket.schedule.branch.name}"></td>
+                    <td th:text="${ticket.schedule.startTime} + ' ' + ${ticket.schedule.startDate}"></td>
+                    <td th:text="${ticket.schedule.room.name}"></td>
+                    <td th:text="${ticket.seat.name}"></td>
+                    <td th:text="${ticket.bill.createdTime}"></td>
+                    <td><img th:src="${ticket.qrImageURL}" style="width: 200px; height: 200px;"/></td>
+                </tr>
+            </table>
+        </div>
+        <br>
+    </div>
+    <br>
+    <br>
+
+    <div th:replace="~{fragments/footer::footer}">
+    </div>
+</body>
+</html>

@@ -63,7 +63,7 @@ public class LoginController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("hasErrors", bindingResult);
+            model.addAttribute("hasErrors", true);
         } else {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -79,7 +79,7 @@ public class LoginController {
                 request.getSession().setAttribute("jwtResponse", jwtResponse.getBody());
             } catch (HttpClientErrorException ex) {
                 model.addAttribute("registerError", ex.getResponseBodyAsString());
-                model.addAttribute("hasErrors", bindingResult);
+                model.addAttribute("hasErrors", true);
             }
         }
 

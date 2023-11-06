@@ -27,8 +27,8 @@
                 <h4 th:text="${branch.name}" class="card-title"></h4>
                 <p class="card-text" th:text="'Địa Chỉ: ' + ${branch.diaChi}"></p>
                 <p class="card-text" th:text="'SĐT: ' + ${branch.phoneNo}"></p>
-                <a th:href="@{'schedule?movieId=' + ${session.movieId} + '&branchId=' + ${branch.id}}" class="btn btn-outline-danger btn-block">Chọn</a>
             </div>
+            <a th:href="@{'schedule?movieId=' + ${session.movieId} + '&branchId=' + ${branch.id}}" class="btn btn-outline-danger btn-block">Chọn</a>
         </div>
     </div>
 
